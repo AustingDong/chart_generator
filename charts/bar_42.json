@@ -1,0 +1,13 @@
+{
+  "filename": "bar_42.png",
+  "chart_type": "bar",
+  "max_category": "A",
+  "variation": {
+    "color_scheme": "category10",
+    "sorted": true,
+    "orientation": "vertical",
+    "num_bars": 4
+  },
+  "question": "Which category has the highest value?",
+  "answer": "A"
+}
