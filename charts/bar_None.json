@@ -1,0 +1,13 @@
+{
+  "filename": "bar_None.png",
+  "chart_type": "bar",
+  "max_category": "C",
+  "variation": {
+    "color_scheme": "dark2",
+    "sorted": true,
+    "orientation": "horizontal",
+    "num_bars": 6
+  },
+  "question": "Which category has the highest value?",
+  "answer": "C"
+}

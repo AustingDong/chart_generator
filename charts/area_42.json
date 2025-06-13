@@ -1,0 +1,11 @@
+{
+  "filename": "area_42.png",
+  "chart_type": "area",
+  "max_x": 5,
+  "variation": {
+    "color_scheme": "blue",
+    "num_points": 6
+  },
+  "question": "At which x-position is the value highest?",
+  "answer": 5
+}

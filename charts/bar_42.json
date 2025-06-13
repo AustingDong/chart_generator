@@ -4,7 +4,7 @@
   "max_category": "A",
   "variation": {
     "color_scheme": "category10",
-    "sorted": true,
+    "sorted": false,
     "orientation": "vertical",
     "num_bars": 4
   },

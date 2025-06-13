@@ -1,0 +1,11 @@
+{
+  "filename": "treemap_None.png",
+  "chart_type": "treemap",
+  "max_category": "B",
+  "variation": {
+    "num_categories": 6,
+    "background_color": "rgba(229,242,247,1.0)"
+  },
+  "question": "Which category occupies the largest area?",
+  "answer": "B"
+}

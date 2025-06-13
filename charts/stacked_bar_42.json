@@ -1,0 +1,12 @@
+{
+  "filename": "stacked_bar_42.png",
+  "chart_type": "stacked_bar",
+  "max_category": "I",
+  "variation": {
+    "color_scheme": "dark2",
+    "num_series": 3,
+    "num_categories": 10
+  },
+  "question": "Which category has the highest total value?",
+  "answer": "I"
+}

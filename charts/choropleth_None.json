@@ -1,0 +1,11 @@
+{
+  "filename": "choropleth_None.png",
+  "chart_type": "choropleth",
+  "max_state": "CT",
+  "variation": {
+    "color_scheme": "Blues",
+    "num_states": 50
+  },
+  "question": "Which state has the highest value?",
+  "answer": "CT"
+}

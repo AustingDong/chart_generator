@@ -1,0 +1,11 @@
+{
+  "filename": "bubble_None.png",
+  "chart_type": "bubble",
+  "max_label": "D",
+  "variation": {
+    "color_scheme": "category10",
+    "num_points": 4
+  },
+  "question": "Which point has the largest size?",
+  "answer": "D"
+}

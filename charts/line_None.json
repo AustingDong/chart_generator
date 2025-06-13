@@ -1,0 +1,11 @@
+{
+  "filename": "line_None.png",
+  "chart_type": "line",
+  "max_x": 1,
+  "variation": {
+    "color": "#2ca02c",
+    "num_points": 10
+  },
+  "question": "At which x-position is the value highest?",
+  "answer": 1
+}

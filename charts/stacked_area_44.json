@@ -1,0 +1,12 @@
+{
+  "filename": "stacked_area_44.png",
+  "chart_type": "stacked_area",
+  "max_category": "B",
+  "variation": {
+    "color_scheme": "category10",
+    "num_series": 3,
+    "num_points": 9
+  },
+  "question": "Which category has the largest total value?",
+  "answer": "B"
+}
