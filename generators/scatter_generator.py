@@ -11,7 +11,9 @@ class ScatterGenerator(ChartGenerator):
     def __init__(self, output_dir: str = "./charts", img_format: str = "png", width: int = 300, height: int = 200):
         super().__init__(output_dir, img_format, width, height)
 
-    def generate(self, seed: int = 0, num_points: int = 10, question_template: Optional[str] = "Which point is the farthest from the origin?"):
+    def generate(self, seed: int = 0, num_points: int = 10, 
+                 question_template: Optional[str] = "Which point is the farthest from the origin?",
+                 **kwargs):
         random.seed(seed)
         np.random.seed(seed)
         bgcolor = self._random_rgba()
@@ -28,7 +30,7 @@ class ScatterGenerator(ChartGenerator):
         shape_options = ['circle', 'square', 'triangle']
         point_shape = random.choice(shape_options)
 
-        # 构建图表
+        # build chart
         chart = alt.Chart(points).mark_point(filled=True, shape=point_shape).encode(
             x='x',
             y='y',
@@ -44,7 +46,6 @@ class ScatterGenerator(ChartGenerator):
                                                size=self.width,
                                                overlay_rgba=bgcolor)
 
-        # 保存标注信息
         metadata = {
             "filename": f"{filename}.{self.img_format}",
             "chart_type": "scatter",

@@ -10,7 +10,7 @@ class ChoroplethGenerator(ChartGenerator):
     def __init__(self, output_dir: str = "./charts", img_format: str = "png", width: int = 700, height: int = 500):
         super().__init__(output_dir, img_format, width, height)
 
-    def generate(self, seed: int = 0, question_template: str = "Which state has the highest value?"):
+    def generate(self, seed: int = 0, question_template: str = "Which state has the highest value?", **kwargs):
         random.seed(seed)
         bgcolor = self._random_rgba()
         

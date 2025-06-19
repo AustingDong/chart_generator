@@ -11,7 +11,8 @@ class PieGenerator(ChartGenerator):
     def __init__(self, output_dir: str = "./charts", img_format: str = "png", width: int = 300, height: int = 200):
         super().__init__(output_dir, img_format, width, height)
     
-    def generate(self, seed: int = 0, num_slices: int = 4, question_template: Optional[str] = "Which category has the largest proportion?"):
+    def generate(self, seed: int = 0, num_slices: int = 4, question_template: Optional[str] = "Which category has the largest proportion?",
+                 **kwargs):
         random.seed(seed)
         bgcolor = self._random_rgba()
 

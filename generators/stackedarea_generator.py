@@ -11,7 +11,8 @@ class StackedAreaGenerator(ChartGenerator):
         super().__init__(output_dir, img_format, width, height)
 
     def generate(self, seed: int = 0, num_series: int = 3, num_points: int = 10,
-                 question_template: Optional[str] = "Which category has the largest total value?"):
+                 question_template: Optional[str] = "Which category has the largest total value?",
+                 **kwargs):
         random.seed(seed)
         bgcolor = self._random_rgba()
 

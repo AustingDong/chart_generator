@@ -11,7 +11,8 @@ class Stacked100Generator(ChartGenerator):
         super().__init__(output_dir, img_format, width, height)
 
     def generate(self, seed: int = 0, num_series: int = 3, num_categories: int = 4,
-                 question_template: Optional[str] = "In which category does a segment occupy the largest proportion?"):
+                 question_template: Optional[str] = "In which category does a segment occupy the largest proportion?",
+                 **kwargs):
         random.seed(seed)
         bgcolor = self._random_rgba()
 

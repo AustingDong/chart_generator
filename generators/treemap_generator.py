@@ -11,7 +11,8 @@ class TreeMapGenerator(ChartGenerator):
         super().__init__(output_dir, img_format, width, height)
 
     def generate(self, seed: int = 0, num_categories: int = 6,
-                 question_template: Optional[str] = "Which category occupies the largest area?"):
+                 question_template: Optional[str] = "Which category occupies the largest area?",
+                 **kwargs):
         random.seed(seed)
         bgcolor = self._random_rgba()
 

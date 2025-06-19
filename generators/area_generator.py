@@ -11,7 +11,9 @@ class AreaGenerator(ChartGenerator):
     def __init__(self, output_dir: str = "./charts", img_format: str = "png", width: int = 300, height: int = 300):
         super().__init__(output_dir, img_format, width, height)
 
-    def generate(self, seed: int = 0, num_points: int = 10, question_template: Optional[str] = "At which x-position is the value highest?"):
+    def generate(self, seed: int = 0, num_points: int = 10, 
+                 question_template: Optional[str] = "At which x-position is the value highest?",
+                 **kwargs):
         random.seed(seed)
         bgcolor = self._random_rgba()
 

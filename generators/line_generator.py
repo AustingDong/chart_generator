@@ -11,7 +11,9 @@ class LineGenerator(ChartGenerator):
     def __init__(self, output_dir: str = "./charts", img_format: str = "png", width: int = 300, height: int = 300):
         super().__init__(output_dir, img_format, width, height)
 
-    def generate(self, seed: int = 0, num_points: int = 10, question_template: Optional[str] = "At which x-position is the value highest?"):
+    def generate(self, seed: int = 0, num_points: int = 10, 
+                 question_template: Optional[str] = "At which x-position is the value highest?",
+                 **kwargs):
         random.seed(seed)
         bgcolor = self._random_rgba()
         
@@ -20,7 +22,7 @@ class LineGenerator(ChartGenerator):
         df = pd.DataFrame({'x': x_vals, 'y': y_vals})
         max_x = df.loc[df['y'].idxmax(), 'x']
 
-        color = random.choice(['#1f77b4', '#ff7f0e', '#2ca02c'])  # 蓝橙绿三选一
+        color = random.choice(['#1f77b4', '#ff7f0e', '#2ca02c'])
 
         chart = alt.Chart(df).mark_line(color=color, point=True, interpolate="monotone").encode(
             x='x',

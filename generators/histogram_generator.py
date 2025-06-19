@@ -12,7 +12,7 @@ class HistogramGenerator(ChartGenerator):
 
     def generate(self, seed: int = 0, num_bins: int = 10, num_values: int = 100,
                  distribution: str = "gaussian",
-                 question_template: Optional[str] = "Which bin has the most values?"):
+                 question_template: Optional[str] = "Which bin has the most values?", **kwargs):
         random.seed(seed)
         bgcolor = self._random_rgba()
 
@@ -61,7 +61,7 @@ class HistogramGenerator(ChartGenerator):
         bin_counts = bins.value_counts().sort_values(ascending=False)
         max_bin = str(bin_counts.index[0])
 
-        # ✅ Metadata 保存
+        # Save metadata
         metadata = {
             "filename": f"{filename}.{self.img_format}",
             "chart_type": "histogram",

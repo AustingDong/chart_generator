@@ -48,7 +48,7 @@ class ChartGenerator:
         paste_y = (dim - h) // 2
         result.paste(img, (paste_x, paste_y), img)
 
-        # 如果需要添加滤镜背景层
+        # background
         if overlay_rgba is not None:
             r, g, b, a = self._rgba_str_to_tuple(overlay_rgba)
             overlay = Image.new("RGBA", (dim, dim), (r, g, b, int(255 * overlay_opacity)))
@@ -57,7 +57,7 @@ class ChartGenerator:
         if save_path is None:
             save_path = img_path
 
-        # 最终保存为 RGB
+        # Saves RGB
         result.convert("RGB").save(save_path)
 
     def generate(*args, **kwargs):
