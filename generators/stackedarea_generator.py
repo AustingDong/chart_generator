@@ -16,7 +16,6 @@ class StackedAreaGenerator(ChartGenerator):
         random.seed(seed)
         bgcolor = self._random_rgba()
 
-        # 构造数据
         data = []
         x_vals = list(range(1, num_points + 1))
 
@@ -62,7 +61,7 @@ class StackedAreaGenerator(ChartGenerator):
             strokeColor="rgba(0,0,0,0.1)"
         )
 
-        filename = f"stacked_area_{seed}"
+        filename = f"StackedArea"
         self._save_chart(chart, filename)
         img_path = os.path.join(self.output_dir, f"{filename}.{self.img_format}")
         self._make_square_padding(

@@ -43,7 +43,7 @@ class BubbleGenerator(ChartGenerator):
             tooltip=['label', 'x', 'y', 'size']
         ).properties(width=self.width, height=self.height, title=title)
 
-        filename = f"bubble_{seed}"
+        filename = f"BubbleChart"
         self._save_chart(chart, filename)
         self._make_square_padding(os.path.join(self.output_dir, 
                                                f"{filename}.{self.img_format}"), 

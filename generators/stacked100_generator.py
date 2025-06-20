@@ -69,8 +69,8 @@ class Stacked100Generator(ChartGenerator):
             strokeColor="rgba(0,0,0,0.1)"
         )
 
-        # 保存图像和滤镜背景
-        filename = f"stacked_bar_100_{seed}"
+        # Save
+        filename = f"Stacked100"
         self._save_chart(chart, filename)
         img_path = os.path.join(self.output_dir, f"{filename}.{self.img_format}")
         self._make_square_padding(
@@ -80,7 +80,6 @@ class Stacked100Generator(ChartGenerator):
             overlay_opacity=0.15
         )
 
-        # 保存 metadata
         metadata = {
             "filename": f"{filename}.{self.img_format}",
             "chart_type": "stacked_bar_100",

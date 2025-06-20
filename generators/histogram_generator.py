@@ -49,7 +49,7 @@ class HistogramGenerator(ChartGenerator):
             gridColor="rgba(0,0,0,0.08)"
         )
 
-        filename = f"histogram_{seed}"
+        filename = f"Histogram"
         self._save_chart(chart, filename)
         img_path = os.path.join(self.output_dir, f"{filename}.{self.img_format}")
         self._make_square_padding(

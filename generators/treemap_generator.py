@@ -50,7 +50,7 @@ class TreeMapGenerator(ChartGenerator):
             margin=dict(l=0, r=0, t=40, b=0)
         )
 
-        filename = f"treemap_{seed}"
+        filename = f"TreeMap"
         save_path = os.path.join(self.output_dir, f"{filename}.{self.img_format}")
         fig.write_image(save_path, width=self.width, height=self.height)
 

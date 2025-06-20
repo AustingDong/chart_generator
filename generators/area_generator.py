@@ -36,7 +36,7 @@ class AreaGenerator(ChartGenerator):
                      height=self.height,
                      title=title).configure_view(stroke=None)
 
-        filename = f"area_{seed}"
+        filename = f"AreaChart"
         self._save_chart(chart, filename)
         self._make_square_padding(os.path.join(self.output_dir, 
                                                f"{filename}.{self.img_format}"), 

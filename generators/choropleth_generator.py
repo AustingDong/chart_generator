@@ -70,7 +70,7 @@ class ChoroplethGenerator(ChartGenerator):
             coloraxis_colorbar=dict(title=value_label),
         )
 
-        filename = f"choropleth_{seed}"
+        filename = f"Choropleth"
         save_path = os.path.join(self.output_dir, f"{filename}.{self.img_format}")
         fig.write_image(save_path, width=self.width, height=self.height)
         self._make_square_padding(os.path.join(self.output_dir, 

@@ -41,7 +41,7 @@ class ScatterGenerator(ChartGenerator):
             tooltip=['x', 'y']
         ).properties(width=self.width, height=self.height, title=title).configure_view(stroke=None)
 
-        filename = f"scatter_{seed}"
+        filename = f"Scatterplot"
         self._save_chart(chart, filename)
         img_path = os.path.join(self.output_dir, f"{filename}.{self.img_format}")
         self._make_square_padding(os.path.join(self.output_dir, 
