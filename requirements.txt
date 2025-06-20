@@ -1,4 +1,5 @@
 altair
+vl-convert-python
 plotly
 pillow
 pandas
