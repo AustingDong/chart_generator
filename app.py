@@ -13,9 +13,6 @@ from generators.treemap_generator import TreeMapGenerator
 from generators.histogram_generator import HistogramGenerator
 from generators.stacked100_generator import Stacked100Generator
 import os
-import kaleido
-
-kaleido.get_chrome_sync()
 
 generators = {
     "Area Chart": AreaGenerator(output_dir="./charts", img_format="png", width=300, height=300),
