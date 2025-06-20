@@ -1,5 +1,6 @@
 altair
 vl-convert-python
 plotly
+kaleido
 pillow
 pandas
