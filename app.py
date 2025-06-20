@@ -103,9 +103,9 @@ with gr.Blocks() as demo:
         num_items = gr.Slider(3, 10, value=4, step=1, label="Number of Items (Slices or Points)")
     
     with gr.Row():
-        x_label = gr.Textbox(label="x_label (category_label)", value=None)
-        y_label = gr.Textbox(label="y_label (value_label)", value=None)
-        size_label = gr.Textbox(label="size_label", value=None)
+        x_label = gr.Textbox(label="x_label (category)", value=None)
+        y_label = gr.Textbox(label="y_label (value)", value=None)
+        size_label = gr.Textbox(label="size_label (series)", value=None)
         title = gr.Textbox(label="title", value=None)
         categories = gr.Textbox(label="categories", value=None)
         series = gr.Textbox(label="series", value=None)
