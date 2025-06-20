@@ -1,6 +1,6 @@
 altair
 vl-convert-python
 plotly
-kaleido
+kaleido==0.2.1
 pillow
 pandas
