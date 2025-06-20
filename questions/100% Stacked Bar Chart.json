@@ -1,0 +1,19 @@
+{
+    "type": "100% Stacked Bar Chart",
+    "question": "Which country has the largest proportion of mouse price?",
+    "options": [
+        {
+            "A": "Canada"
+        },
+        {
+            "B": "China"
+        },
+        {
+            "C": "Japan"
+        },
+        {
+            "D": "Korea"
+        }
+    ],
+    "correct_answer": "A"
+}

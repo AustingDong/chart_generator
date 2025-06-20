@@ -1,0 +1,19 @@
+{
+    "type": "Line Chart",
+    "question": "What is the blood sugar level three hours after a meal",
+    "options": [
+        {
+            "A": "18"
+        },
+        {
+            "B": "70"
+        },
+        {
+            "C": "90"
+        },
+        {
+            "D": "50"
+        }
+    ],
+    "correct_answer": "3"
+}

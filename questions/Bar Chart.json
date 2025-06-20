@@ -1,0 +1,19 @@
+{
+    "type": "Bar Chart",
+    "question": "Which student has the highest score in midterm?",
+    "options": [
+        {
+            "A": "Bob"
+        },
+        {
+            "B": "Elora"
+        },
+        {
+            "C": "Kevin"
+        },
+        {
+            "D": "David"
+        }
+    ],
+    "correct_answer": "D"
+}

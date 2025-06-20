@@ -16,7 +16,12 @@ class TreeMapGenerator(ChartGenerator):
         random.seed(seed)
         bgcolor = self._random_rgba()
 
-        categories = [chr(65 + i) for i in range(num_categories)]
+        values_label = kwargs.get("y_label") or "Value"
+        title = kwargs.get("title") or f"Tree map of {values_label}"
+        categories = kwargs.get("categories") or [chr(65+i) for i in range(num_categories)]
+        if (len(categories) != num_categories):
+            categories = [chr(65+i) for i in range(num_categories)]
+        
         values = [random.randint(10, 100) for _ in categories]
         df = pd.DataFrame({'category': categories, 'value': values})
         max_category = df.loc[df['value'].idxmax(), 'category']
@@ -32,11 +37,17 @@ class TreeMapGenerator(ChartGenerator):
         fig.update_layout(
             width=self.width,
             height=self.height,
-            margin=dict(l=0, r=0, t=0, b=0),
             paper_bgcolor=bgcolor,
             plot_bgcolor=bgcolor,
             font=dict(family="Open Sans", size=12, color="black"),
-            uniformtext=dict(minsize=10, mode='hide')
+            uniformtext=dict(minsize=10, mode='hide'),
+            title=dict(
+                text=title,
+                font=dict(size=16, family="Arial Black"),
+                x=0.5,
+                xanchor='center'
+            ),
+            margin=dict(l=0, r=0, t=40, b=0)
         )
 
         filename = f"treemap_{seed}"

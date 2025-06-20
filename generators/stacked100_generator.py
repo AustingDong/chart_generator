@@ -16,8 +16,19 @@ class Stacked100Generator(ChartGenerator):
         random.seed(seed)
         bgcolor = self._random_rgba()
 
-        categories = [chr(65 + i) for i in range(num_categories)]
-        series = [f"S{i+1}" for i in range(num_series)]
+        x_label = kwargs.get("x_label") or "Category"
+        series_label = kwargs.get("size_label") or "Series"
+        values_label = kwargs.get("y_label") or "Value"
+        title = kwargs.get("title") or f"100% Stacked Bar Chart of {values_label}"
+
+        categories = kwargs.get("categories") or [chr(65+i) for i in range(num_categories)]
+        if (len(categories) != num_categories):
+            categories = [chr(65+i) for i in range(num_categories)]
+        
+        series = kwargs.get("series") or [f"S{i+1}" for i in range(num_series)]
+        if (len(series) != num_series):
+            series = [f"S{i+1}" for i in range(num_series)]
+
         data = []
 
         for cat in categories:
@@ -27,7 +38,7 @@ class Stacked100Generator(ChartGenerator):
                 data.append({
                     'category': cat,
                     'series': s,
-                    'value': val / total  # 归一化为比例
+                    'value': val / total
                 })
 
         df = pd.DataFrame(data)
@@ -41,11 +52,11 @@ class Stacked100Generator(ChartGenerator):
         color_scheme = random.choice(['category10', 'set2', 'dark2'])
 
         chart = alt.Chart(df).mark_bar().encode(
-            x=alt.X('category:N', title="Category"),
-            y=alt.Y('value:Q', stack='normalize', title="Proportion"),
-            color=alt.Color('series:N', scale=alt.Scale(scheme=color_scheme), title="Series"),
+            x=alt.X('category:N', title=x_label),
+            y=alt.Y('value:Q', stack='normalize', title=f"Proportion of {values_label}"),
+            color=alt.Color('series:N', scale=alt.Scale(scheme=color_scheme), title=series_label),
             tooltip=['category', 'series', alt.Tooltip('value:Q', format=".2%")]
-        ).properties(width=self.width, height=self.height)
+        ).properties(width=self.width, height=self.height, title=title)
 
         chart = chart.configure_view(
             stroke=None

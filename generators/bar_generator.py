@@ -17,7 +17,13 @@ class BarGenerator(ChartGenerator):
         random.seed(seed)
         bgcolor = self._random_rgba()
 
-        categories = [chr(65+i) for i in range(num_bars)]
+        x_label = kwargs.get("x_label") or "Category"
+        values_label = kwargs.get("y_label") or "Value"
+        title = kwargs.get("title") or f"Bar Chart of {values_label}"
+        categories = kwargs.get("categories") or [chr(65+i) for i in range(num_bars)]
+        if (len(categories) != num_bars):
+            categories = [chr(65+i) for i in range(num_bars)]
+
         values = [random.randint(10, 100) for _ in categories]
         df = pd.DataFrame({'Category': categories, 'Value': values})
 
@@ -30,18 +36,18 @@ class BarGenerator(ChartGenerator):
 
         if orientation == 'vertical':
             chart = alt.Chart(df).mark_bar().encode(
-                x=alt.X('Category', sort=None),
-                y='Value',
-                color=alt.Color('Category', scale=alt.Scale(scheme=color_scheme))
+                x=alt.X('Category', title=x_label, sort=None),
+                y=alt.Y("Value:Q", title=values_label),
+                color=alt.Color('Category', title=x_label, scale=alt.Scale(scheme=color_scheme))
             )
         else:
             chart = alt.Chart(df).mark_bar().encode(
-                y=alt.Y('Category', sort=None),
-                x='Value',
-                color=alt.Color('Category', scale=alt.Scale(scheme=color_scheme))
+                y=alt.Y('Category', title=x_label, sort=None),
+                x=alt.X('Value:Q', title=values_label),
+                color=alt.Color('Category', title=x_label, scale=alt.Scale(scheme=color_scheme))
             )
 
-        chart = chart.properties(width=self.width, height=self.height).configure_view(stroke=None)
+        chart = chart.properties(width=self.width, height=self.height, title=title).configure_view(stroke=None)
 
         filename = f"bar_{seed}"
         self._save_chart(chart, filename)

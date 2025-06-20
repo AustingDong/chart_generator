@@ -1,0 +1,19 @@
+{
+    "type": "Area Chart",
+    "question": "At which month the price of tea is the highest?",
+    "options": [
+        {
+            "A": "1"
+        },
+        {
+            "B": "3"
+        },
+        {
+            "C": "4"
+        },
+        {
+            "D": "7"
+        }
+    ],
+    "correct_answer": "C"
+}

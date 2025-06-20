@@ -17,23 +17,31 @@ class BubbleGenerator(ChartGenerator):
         random.seed(seed)
         bgcolor = self._random_rgba()
 
+        x_label = kwargs.get("x_label") or "x"
+        y_label = kwargs.get("y_label") or "y"
+        size_label = kwargs.get("size_label") or "size"
+        title = kwargs.get("title") or f"Bubble Chart between {x_label} and {y_label} over {size_label}"
+        categories = kwargs.get("categories") or [chr(65+i) for i in range(num_points)]
+        if (len(categories) != num_points):
+            categories = [chr(65+i) for i in range(num_points)]
+        
         points = pd.DataFrame({
             'x': [random.uniform(0, 100) for _ in range(num_points)],
             'y': [random.uniform(0, 100) for _ in range(num_points)],
             'size': [random.randint(20, 200) for _ in range(num_points)],
-            'label': [chr(65+i) for i in range(num_points)]
+            'label': categories
         })
 
         largest = points.loc[points['size'].idxmax(), 'label']
         color_scheme = random.choice(['category10', 'tableau10'])
 
         chart = alt.Chart(points).mark_circle(opacity=0.7).encode(
-            x='x',
-            y='y',
-            size='size',
+            x=alt.X('x:Q', title=x_label),
+            y=alt.Y('y:Q', title=y_label),
+            size=alt.Size('size:Q', title=size_label),
             color=alt.Color('label', scale=alt.Scale(scheme=color_scheme)),
             tooltip=['label', 'x', 'y', 'size']
-        ).properties(width=self.width, height=self.height)
+        ).properties(width=self.width, height=self.height, title=title)
 
         filename = f"bubble_{seed}"
         self._save_chart(chart, filename)

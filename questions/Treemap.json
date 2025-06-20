@@ -1,0 +1,19 @@
+{
+    "type": "Treemap",
+    "question": "Which country has the largest population?",
+    "options": [
+        {
+            "A": "China"
+        },
+        {
+            "B": " USA"
+        },
+        {
+            "C": " Canada"
+        },
+        {
+            "D": " UK"
+        }
+    ],
+    "correct_answer": "A"
+}

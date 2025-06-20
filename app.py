@@ -1,4 +1,5 @@
 import gradio as gr
+import json
 from generators.scatter_generator import ScatterGenerator
 from generators.pie_generator import PieGenerator
 from generators.bar_generator import BarGenerator
@@ -28,38 +29,70 @@ generators = {
     "100% Stacked Bar Chart": Stacked100Generator(output_dir="./charts", img_format="png", width=300, height=300)
 }
 
-def generate_chart(chart_type, seed, num_items):
+def generate_chart(chart_type, seed, num_items, x_label, y_label, size_label, title, categories, series):
+    kwargs = {
+        "x_label": x_label,
+        "y_label": y_label,
+        "size_label": size_label,
+        "title": title,
+        "categories": categories.split(","),
+        "series": series.split(",")
+    }
+
     generator = generators[chart_type]
     if chart_type == "Pie Chart":
-        filename = generator.generate(seed=seed, num_slices=num_items)
+        filename = generator.generate(seed=seed, num_slices=num_items, **kwargs)
     elif chart_type == "Scatter Chart":
-        filename = generator.generate(seed=seed, num_points=num_items)
+        filename = generator.generate(seed=seed, num_points=num_items, **kwargs)
     elif chart_type == "Bar Chart":
-        filename = generator.generate(seed=seed, num_bars=num_items)
+        filename = generator.generate(seed=seed, num_bars=num_items, **kwargs)
     elif chart_type == "Area Chart":
-        filename = generator.generate(seed=seed, num_points=num_items)
+        filename = generator.generate(seed=seed, num_points=num_items, **kwargs)
     elif chart_type == "Bubble Chart":
-        filename = generator.generate(seed=seed, num_points=num_items)
+        filename = generator.generate(seed=seed, num_points=num_items, **kwargs)
     elif chart_type == "Line Chart":
-        filename = generator.generate(seed=seed, num_points=num_items)
+        filename = generator.generate(seed=seed, num_points=num_items, **kwargs)
     elif chart_type == "Choropleth Map":
-        filename = generator.generate(seed=seed)
+        filename = generator.generate(seed=seed, **kwargs)
     elif chart_type == "Stacked Area Chart":
-        filename = generator.generate(seed=seed, num_points=num_items)
+        filename = generator.generate(seed=seed, num_points=num_items, **kwargs)
     elif chart_type == "Stacked Bar Chart":
-        filename = generator.generate(seed=seed, num_categories=num_items)
+        filename = generator.generate(seed=seed, num_categories=num_items, **kwargs)
     elif chart_type == "Treemap":
-        filename = generator.generate(seed=seed, num_categories=num_items)
+        filename = generator.generate(seed=seed, num_categories=num_items, **kwargs)
     elif chart_type == "Histogram":
-        filename = generator.generate(seed=seed, num_bins=num_items)
+        filename = generator.generate(seed=seed, num_bins=num_items, **kwargs)
     elif chart_type == "100% Stacked Bar Chart":
-        filename = generator.generate(seed=seed, num_categories=num_items)
+        filename = generator.generate(seed=seed, num_categories=num_items, **kwargs)
     else:
         return None, "Unsupported chart type."
 
     img_path = os.path.join(generator.output_dir, f"{filename}.png")
     json_path = os.path.join(generator.output_dir, f"{filename}.json")
     return img_path, json_path
+
+
+def generate_qa(chart_type, question, options, answer):
+    QA_DIR = "./questions"
+    json_path = os.path.join(QA_DIR, f"{chart_type}.json")
+    opt = options.split(",")
+    opt_sel = []
+    for i, o in enumerate(opt):
+        sel = {
+            chr(65+i): o
+        }
+        opt_sel.append(sel)
+
+    qa = {
+        "type": chart_type,
+        "question": question,
+        "options": opt_sel,
+        "correct_answer": answer # A, B, C, D
+    }
+
+    with open(json_path, "w") as f:
+        json.dump(qa, f, indent=4)
+    return json_path
 
 with gr.Blocks() as demo:
     gr.Markdown("# 📊 Chart Generator")
@@ -69,16 +102,49 @@ with gr.Blocks() as demo:
         seed = gr.Number(label="Random Seed", value=42, precision=0)
         num_items = gr.Slider(3, 10, value=4, step=1, label="Number of Items (Slices or Points)")
     
+    with gr.Row():
+        x_label = gr.Textbox(label="x_label (category_label)", value=None)
+        y_label = gr.Textbox(label="y_label (value_label)", value=None)
+        size_label = gr.Textbox(label="size_label", value=None)
+        title = gr.Textbox(label="title", value=None)
+        categories = gr.Textbox(label="categories", value=None)
+        series = gr.Textbox(label="series", value=None)
+
     generate_btn = gr.Button("Generate Chart")
 
     with gr.Row():
-        img_output = gr.Image(label="Generated Chart")
-        json_output = gr.File(label="Download Metadata (.json)")
+        with gr.Column():
+            img_output = gr.Image(label="Generated Chart")
+        with gr.Column():
+            json_output = gr.File(label="Download Metadata (.json)")
+            question_answer_json = gr.File(label="Download Qustion & Answer (.json)")
+
+    with gr.Row():
+        question = gr.Textbox(label="Question")
+        options = gr.Textbox(label="Options")
+        answer = gr.Textbox(label="Answer")
+    
+    generate_qa_btn = gr.Button("Generate Question & Answer")
 
     generate_btn.click(
         fn=generate_chart,
-        inputs=[chart_type, seed, num_items],
+        inputs=[chart_type, seed, num_items, 
+        x_label,
+        y_label,
+        size_label,
+        title,
+        categories,
+        series
+        ],
         outputs=[img_output, json_output]
     )
+
+    generate_qa_btn.click(
+        fn=generate_qa,
+        inputs=[chart_type, question, options, answer],
+        outputs=[question_answer_json]
+    )
+
+
 
 demo.launch()

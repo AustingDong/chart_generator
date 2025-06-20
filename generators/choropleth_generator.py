@@ -13,6 +13,9 @@ class ChoroplethGenerator(ChartGenerator):
     def generate(self, seed: int = 0, question_template: str = "Which state has the highest value?", **kwargs):
         random.seed(seed)
         bgcolor = self._random_rgba()
+
+        value_label = kwargs.get("y_label") or "Value"
+        title = kwargs.get("title") or "Choropleth Map over value"
         
         state_abbr = [
             'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA',
@@ -36,7 +39,7 @@ class ChoroplethGenerator(ChartGenerator):
             color='value',
             scope="usa",
             color_continuous_scale="Blues",
-            labels={'value': 'Value'}
+            labels={'value': value_label},
         )
 
         fig.add_trace(go.Scattergeo(
@@ -51,17 +54,20 @@ class ChoroplethGenerator(ChartGenerator):
         fig.update_layout(
             width=self.width,
             height=self.height,
-            margin={"r": 0, "t": 0, "l": 0, "b": 0},
+            title=dict(
+                text=title,
+                font=dict(size=16, family="Arial Black"),
+                x=0.5,
+                xanchor='center'
+            ),
+            margin={"r": 0, "t": 40, "l": 0, "b": 0},
             geo=dict(
                 scope="usa",
                 projection=dict(type="albers usa"),
                 showlakes=True,
                 lakecolor="LightBlue",
-                bgcolor=bgcolor,
             ),
-            coloraxis_colorbar=dict(title="Value"),
-            plot_bgcolor=bgcolor,
-            paper_bgcolor=bgcolor,
+            coloraxis_colorbar=dict(title=value_label),
         )
 
         filename = f"choropleth_{seed}"

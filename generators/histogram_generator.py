@@ -15,6 +15,8 @@ class HistogramGenerator(ChartGenerator):
                  question_template: Optional[str] = "Which bin has the most values?", **kwargs):
         random.seed(seed)
         bgcolor = self._random_rgba()
+        values_label = kwargs.get("y_label") or "Value"
+        title = kwargs.get("title") or f"Histogram of {values_label}"
 
         if distribution == "gaussian":
             values = [random.gauss(50, 15) for _ in range(num_values)]
@@ -34,10 +36,10 @@ class HistogramGenerator(ChartGenerator):
 
 
         chart = alt.Chart(df).mark_bar().encode(
-            x=alt.X('value:Q', bin=alt.Bin(maxbins=num_bins), title="Value"),
+            x=alt.X('value:Q', bin=alt.Bin(maxbins=num_bins), title=values_label),
             y=alt.Y('count()', title="Frequency"),
             tooltip=['count()']
-        ).properties(width=self.width, height=self.height)
+        ).properties(width=self.width, height=self.height, title=title)
 
         chart = chart.configure_view(
             stroke=None

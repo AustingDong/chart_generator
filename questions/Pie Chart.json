@@ -1,0 +1,19 @@
+{
+    "type": "Pie Chart",
+    "question": "Which stock has the smallest holdings in this portfolio?",
+    "options": [
+        {
+            "A": "AAPL"
+        },
+        {
+            "B": "NVDA"
+        },
+        {
+            "C": "TSLA"
+        },
+        {
+            "D": "GOOG"
+        }
+    ],
+    "correct_answer": "B"
+}

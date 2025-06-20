@@ -22,13 +22,19 @@ class AreaGenerator(ChartGenerator):
         df = pd.DataFrame({'x': x_vals, 'y': y_vals})
         max_x = df.loc[df['y'].idxmax(), 'x']
 
+        x_label = kwargs.get("x_label") or "x"
+        y_label = kwargs.get("y_label") or "y"
+        title = kwargs.get("title") or f"Area Chart between {x_label} and {y_label}"
+
         color_scheme = random.choice(['blue', 'teal', 'orange'])
 
         chart = alt.Chart(df).mark_area(color=color_scheme, interpolate="monotone").encode(
-            x='x',
-            y='y',
-            tooltip=["x", "y"]
-        ).properties(width=self.width, height=self.height).configure_view(stroke=None)
+            x=alt.X('x:Q', title=x_label),
+            y=alt.Y('y:Q', title=y_label),
+            tooltip=['x', 'y']
+        ).properties(width=self.width, 
+                     height=self.height,
+                     title=title).configure_view(stroke=None)
 
         filename = f"area_{seed}"
         self._save_chart(chart, filename)

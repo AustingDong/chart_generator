@@ -11,7 +11,7 @@ class StackedAreaGenerator(ChartGenerator):
         super().__init__(output_dir, img_format, width, height)
 
     def generate(self, seed: int = 0, num_series: int = 3, num_points: int = 10,
-                 question_template: Optional[str] = "Which category has the largest total value?",
+                 question_template: Optional[str] = "Which serie has the largest total value?",
                  **kwargs):
         random.seed(seed)
         bgcolor = self._random_rgba()
@@ -19,30 +19,38 @@ class StackedAreaGenerator(ChartGenerator):
         # 构造数据
         data = []
         x_vals = list(range(1, num_points + 1))
-        categories = [chr(65 + i) for i in range(num_series)]
 
-        for cat in categories:
+        x_label = kwargs.get("x_label") or "x"
+        values_label = kwargs.get("y_label") or "Value"
+        series_label = kwargs.get("size_label") or "Series"
+        title = kwargs.get("title") or f"Stacked Area Chart of {values_label}"
+
+        series = kwargs.get("series") or [chr(65+i) for i in range(num_series)]
+        if (len(series) != num_series):
+            series = [chr(65+i) for i in range(num_series)]
+        
+
+        for se in series:
             for x in x_vals:
                 data.append({
                     'x': x,
-                    'category': cat,
+                    'serie': se,
                     'value': random.randint(10, 50)
                 })
 
         df = pd.DataFrame(data)
-        agg = df.groupby('category')['value'].sum()
-        max_cat = agg.idxmax()
+        agg = df.groupby('serie')['value'].sum()
+        max_se = agg.idxmax()
 
         color_scheme = random.choice(['category10', 'set2', 'dark2'])
 
         chart = alt.Chart(df).mark_area(interpolate='monotone').encode(
-            x='x:O',
-            y='value:Q',
-            color=alt.Color('category:N', scale=alt.Scale(scheme=color_scheme)),
-            tooltip=['category', 'x', 'value']
-        ).properties(width=self.width, height=self.height)
+            x=alt.X('x:O', title=x_label),
+            y=alt.Y('value:Q', title=values_label),
+            color=alt.Color('serie:N', title=series_label, scale=alt.Scale(scheme=color_scheme)),
+            tooltip=['serie', 'x', 'value']
+        ).properties(width=self.width, height=self.height, title=title)
 
-        # 添加美化风格
         chart = chart.configure_view(
             stroke=None
         ).configure_axis(
@@ -54,7 +62,6 @@ class StackedAreaGenerator(ChartGenerator):
             strokeColor="rgba(0,0,0,0.1)"
         )
 
-        # 保存图和填充背景
         filename = f"stacked_area_{seed}"
         self._save_chart(chart, filename)
         img_path = os.path.join(self.output_dir, f"{filename}.{self.img_format}")
@@ -65,18 +72,17 @@ class StackedAreaGenerator(ChartGenerator):
             overlay_opacity=0.15
         )
 
-        # 保存 metadata
         metadata = {
             "filename": f"{filename}.{self.img_format}",
             "chart_type": "stacked_area",
-            "max_category": max_cat,
+            "max_serie": max_se,
             "variation": {
                 "color_scheme": color_scheme,
                 "num_series": num_series,
                 "num_points": num_points,
             },
             "question": question_template,
-            "answer": max_cat
+            "answer": max_se
         }
         self._save_metadata(metadata, filename)
         return filename

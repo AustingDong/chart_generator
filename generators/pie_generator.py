@@ -15,8 +15,14 @@ class PieGenerator(ChartGenerator):
                  **kwargs):
         random.seed(seed)
         bgcolor = self._random_rgba()
+        
+        category_label = kwargs.get("x_label") or "Category"
+        values_label = kwargs.get("y_label") or "Value"
+        title = kwargs.get("title") or f"Pie Chart of {values_label}"
+        categories = kwargs.get("categories") or [chr(65+i) for i in range(num_slices)]
+        if (len(categories) != num_slices):
+            categories = [chr(65+i) for i in range(num_slices)]
 
-        categories = [chr(65 + i) for i in range(num_slices)]
         values = [random.randint(10, 100) for _ in categories]
         df = pd.DataFrame({'Category': categories, 'Value': values})
         df['Percentage'] = df['Value'] / df['Value'].sum()
@@ -25,9 +31,9 @@ class PieGenerator(ChartGenerator):
 
         chart = alt.Chart(df).mark_arc(innerRadius=0).encode(
             theta=alt.Theta(field="Value", type="quantitative"),
-            color=alt.Color("Category", scale=alt.Scale(scheme=color_scheme)),
+            color=alt.Color("Category", title=category_label, scale=alt.Scale(scheme=color_scheme)),
             tooltip=["Category", "Value"]
-        ).properties(width=self.width, height=self.height).configure_view(stroke=None)
+        ).properties(width=self.width, height=self.height, title=title).configure_view(stroke=None)
 
         filename = f"pie_{seed}"
         self._save_chart(chart, filename)

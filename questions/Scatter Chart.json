@@ -1,0 +1,19 @@
+{
+    "type": "Scatter Chart",
+    "question": "What is the weight of the individual that has highest height?",
+    "options": [
+        {
+            "A": "96"
+        },
+        {
+            "B": "72"
+        },
+        {
+            "C": "55"
+        },
+        {
+            "D": "25"
+        }
+    ],
+    "correct_answer": "A"
+}

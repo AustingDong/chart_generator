@@ -1,0 +1,13 @@
+{
+    "type": "Choropleth Map",
+    "question": "Is the GDP of CA higher than NV?",
+    "options": [
+        {
+            "A": "True"
+        },
+        {
+            "B": "False"
+        }
+    ],
+    "correct_answer": "A"
+}

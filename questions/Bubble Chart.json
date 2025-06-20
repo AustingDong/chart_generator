@@ -1,0 +1,19 @@
+{
+    "type": "Bubble Chart",
+    "question": "What is the number of employees of the company that has lowest annual income?",
+    "options": [
+        {
+            "A": "5"
+        },
+        {
+            "B": "20"
+        },
+        {
+            "C": "85"
+        },
+        {
+            "D": "60"
+        }
+    ],
+    "correct_answer": "C"
+}

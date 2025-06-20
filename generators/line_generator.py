@@ -23,12 +23,16 @@ class LineGenerator(ChartGenerator):
         max_x = df.loc[df['y'].idxmax(), 'x']
 
         color = random.choice(['#1f77b4', '#ff7f0e', '#2ca02c'])
+        
+        x_label = kwargs.get("x_label") or "x"
+        y_label = kwargs.get("y_label") or "y"
+        title = kwargs.get("title") or f"Line Chart between {x_label} and {y_label}"
 
         chart = alt.Chart(df).mark_line(color=color, point=True, interpolate="monotone").encode(
-            x='x',
-            y='y',
+            x=alt.X('x:Q', title=x_label),
+            y=alt.Y('y:Q', title=y_label),
             tooltip=["x", "y"]
-        ).properties(width=self.width, height=self.height).configure_view(stroke=None)
+        ).properties(width=self.width, height=self.height, title=title).configure_view(stroke=None)
 
         filename = f"line_{seed}"
         self._save_chart(chart, filename)

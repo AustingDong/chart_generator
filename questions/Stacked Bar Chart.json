@@ -1,0 +1,19 @@
+{
+    "type": "Stacked Bar Chart",
+    "question": "What is the price of headphone in Japan?",
+    "options": [
+        {
+            "A": "10"
+        },
+        {
+            "B": "30"
+        },
+        {
+            "C": "50"
+        },
+        {
+            "D": "70"
+        }
+    ],
+    "correct_answer": "B"
+}

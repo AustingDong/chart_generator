@@ -1,0 +1,19 @@
+{
+    "type": "Histogram",
+    "question": "Which range of distance of trip people prefers the most?",
+    "options": [
+        {
+            "A": "10-20km"
+        },
+        {
+            "B": "30-40km"
+        },
+        {
+            "C": "50-60km"
+        },
+        {
+            "D": "70-80km"
+        }
+    ],
+    "correct_answer": "C"
+}
